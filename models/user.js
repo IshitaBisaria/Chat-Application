@@ -25,7 +25,12 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 6,
   },
-  profilePicture: String,
+  profilePicture: {
+    type: String,
+    required: true,
+    default:
+      "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+  },
   status: {
     type: Boolean,
     default: true,
