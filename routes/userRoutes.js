@@ -61,10 +61,12 @@ router.post(
         password: hashedPassword,
       });
 
+      newUser.token = generateToken(newUser._id);
+
       // Save the new user to the database
       await newUser.save();
 
-      return res.status(201).json({ message: "User registered successfully" });
+      res.redirect("/login");
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "Internal server error" });
