@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.use("/api/user", userRoutes);
+app.use("/", userRoutes);
 
 app.listen(PORT, () => {
   console.log(`The App started on port ${PORT}`);
