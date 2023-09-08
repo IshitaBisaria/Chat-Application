@@ -4,6 +4,31 @@ const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const path = require("path");
+const generateToken = require("../config/generateToken");
+
+router.get("/login", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/login.html"));
+});
+
+router.post("/login", async (req, res) => {
+  const { usernameOrEmail, password } = req.body;
+
+  const user = await User.findOne({
+    $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
+  });
+
+  if (!user) {
+    return res.status(401).json({ message: "Invalid credentials" });
+  }
+
+  const passwordMatch = await bcrypt.compare(password, user.password);
+
+  if (!passwordMatch) {
+    return res.status(401).json({ message: "Invalid credentials" });
+  }
+
+  res.redirect("/api/chats");
+});
 
 // In your userRoutes.js or other appropriate route file
 router.get("/signup", (req, res) => {

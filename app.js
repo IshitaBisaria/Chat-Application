@@ -9,6 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 const userRoutes = require("./routes/userRoutes");
+const chatRoutes = require("./routes/chatRoutes");
 
 dotenv.config();
 connectDB();
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/", userRoutes);
+app.use("/api/", chatRoutes);
 
 app.listen(PORT, () => {
   console.log(`The App started on port ${PORT}`);
