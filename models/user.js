@@ -1,13 +1,12 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-  },
   username: {
     type: String,
     required: true,
+    unique: true,
+    minlength: 3,
+    maxlength: 30,
   },
   name: {
     type: String,
@@ -16,14 +15,17 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
+    lowercase: true,
+    trim: true,
+    match: /^\S+@\S+\.\S+$/,
   },
   password: {
     type: String,
     required: true,
+    minlength: 6,
   },
-  profilePicture: {
-    type: String,
-  },
+  profilePicture: String,
   status: {
     type: Boolean,
     default: true,
