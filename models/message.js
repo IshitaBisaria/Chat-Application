@@ -2,32 +2,29 @@ const mongoose = require("mongoose");
 const User = require("./user");
 
 const messageSchema = new mongoose.Schema({
-  messageId: {
-    type: String,
-    required: true,
-  },
   sender: {
-    type: mongoose.Schema.Types.ObjectId, // Use ObjectId for sender
-    ref: "User", // Reference the "User" model
-    required: true,
-  },
-  receiver: {
-    type: mongoose.Schema.Types.ObjectId, // Use ObjectId for receiver
-    ref: "User", // Reference the "User" model
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   content: {
     type: String,
     required: true,
   },
+  chat: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Chat",
+  },
+  readBy: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   time: {
     type: Date,
     default: Date.now,
     required: true,
-  },
-  readStatus: {
-    type: Boolean,
-    default: false,
   },
 });
 
