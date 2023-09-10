@@ -28,6 +28,19 @@ app.get("/", (req, res) => {
 app.use("/", userRoutes);
 app.use("/api/", chatRoutes);
 
-app.listen(PORT, () => {
+io.on("connection", (socket) => {
+  console.log("A User Connected");
+
+  socket.on("disconnect", () => {
+    console.log("A user disconnected");
+  });
+
+  socket.on("chat message", (message) => {
+    console.log(message);
+    io.emit("chat message", message);
+  });
+});
+
+server.listen(PORT, () => {
   console.log(`The App started on port ${PORT}`);
 });
