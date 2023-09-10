@@ -3,6 +3,13 @@ const app = express();
 const dotenv = require("dotenv");
 const path = require("path");
 const connectDB = require("./config/db");
+const http = require("http");
+const socketIo = require("socket.io");
+
+const server = http.createServer(app);
+const io = socketIo(server);
+
+const chats = require("./data/chats");
 
 app.use(express.urlencoded({ extended: true }));
 
