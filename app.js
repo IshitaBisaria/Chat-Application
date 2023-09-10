@@ -9,8 +9,6 @@ const socketIo = require("socket.io");
 const server = http.createServer(app);
 const io = socketIo(server);
 
-const chats = require("./data/chats");
-
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(__dirname + "/public"));
